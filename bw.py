@@ -31,7 +31,7 @@ def nonRepeat(line):
     return None
 
 import random
-def shuffle(arr):
+def myshuffle(arr):
     random.shuffle(arr)
     return arr
 
