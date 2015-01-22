@@ -1,9 +1,6 @@
-
 def duplicate(arr):
     if len(arr) < 2:
         return -1
-    elif len(arr) == 2:
-        return arr[0]
     else:
         arr.sort()
         prev = None
@@ -11,6 +8,8 @@ def duplicate(arr):
             if item == prev:
                 return item
             prev = item
+        return -1
+
 
 def nonRepeat(line):
 
@@ -31,8 +30,22 @@ def nonRepeat(line):
             return m
     return None
 
-
 import random
 def shuffle(arr):
     random.shuffle(arr)
     return arr
+
+def test():
+    ansDuplicate = [-1, -1, -1, 3]
+    dataDuplicate = [[], [1], [1, 2], [1, 2, 3, 3]]
+
+    for i, j in zip(ansDuplicate, dataDuplicate):
+        print duplicate(j) == i
+
+    ansRepeat = ['\0', None, 'a', 'a', None, 'd']
+    dataRepeat = ['\0','', 'a', 'abc', 'aabbcc', 'abcbcad']
+
+    for i, j in zip(ansRepeat, dataRepeat):
+        print nonRepeat(j) == i
+
+test()
