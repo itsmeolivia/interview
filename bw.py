@@ -10,7 +10,6 @@ def duplicate(arr):
             prev = item
         return -1
 
-
 def nonRepeat(line):
     if len(line) == 1:
         return line
