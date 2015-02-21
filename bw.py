@@ -12,7 +12,6 @@ def duplicate(arr):
 
 
 def nonRepeat(line):
-
     if len(line) == 1:
         return line
 
@@ -31,6 +30,7 @@ def nonRepeat(line):
     return None
 
 import random
+
 def myshuffle(arr):
     random.shuffle(arr)
     return arr
