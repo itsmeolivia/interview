@@ -85,10 +85,10 @@ def main():
     while True:
         line = raw_input()
         command = line.split()
-        if command[0] in dispatch_table:
+        try:
             dispatch_table[command[0]](*command[1:])
-        else:
-            print >> sys.stderr, "Command not found"
+        except:
+            print >> sys.stderr, "Invalid command. Try again!"
 
 
 if __name__ == "__main__":
