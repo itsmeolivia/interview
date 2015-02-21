@@ -80,7 +80,6 @@ def main():
         'BEGIN': begin,
         'COMMIT': commit,
         'ROLLBACK': rollback,
-
     }
 
     while True:
