@@ -72,14 +72,14 @@ def begin():
 def main():
 
     dispatch_table = {
-        'GET': get_val,
-        'SET': set_var,
-        'UNSET': unset,
-        'NUMEQUALTO': num_equal_to,
-        'END': exit,
-        'BEGIN': begin,
-        'COMMIT': commit,
-        'ROLLBACK': rollback,
+        "GET": get_val,
+        "SET": set_var,
+        "UNSET": unset,
+        "NUMEQUALTO": num_equal_to,
+        "END": exit,
+        "BEGIN": begin,
+        "COMMIT": commit,
+        "ROLLBACK": rollback,
     }
 
     while True:
