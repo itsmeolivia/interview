@@ -3,15 +3,18 @@ import sys
 var_map = {}
 val_map = {}
 undo = []
+rolling_back = False
 # data commands
 
 
 def set_var(name, value):
     if name in var_map:
-        undo.append((set_var, name, var_map[name]))
+        if len(undo) != 0 and not rolling_back:
+            undo.append((set_var, name, var_map[name]))
         val_map[var_map[name]] -= 1
     else:
-        undo.append((unset, name))
+        if len(undo) != 0 and not rolling_back:
+            undo.append((unset, name))
 
     if value in val_map:
         val_map[value] += 1
@@ -28,7 +31,8 @@ def get_val(name):
 
 
 def unset(name):
-    undo.append((set_var, name, var_map[name]))
+    if len(undo) != 0 and not rolling_back:
+        undo.append((set_var, name, var_map[name]))
     val_map[var_map[name]] -= 1
     del var_map[name]
 
@@ -51,11 +55,14 @@ def rollback():
     if len(undo) == 0:
         print "NO TRANSACTION"
         return
-
+    global rolling_back
+    rolling_back = True
     while rolling != "begin":
         rolling = undo.pop()
         if rolling != "begin":
             rolling[0](*rolling[1:])
+        else:
+            rolling_back = False
 
 
 def begin():
