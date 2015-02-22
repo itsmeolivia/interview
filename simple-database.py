@@ -1,5 +1,3 @@
-import sys
-
 var_map = {}
 val_map = {}
 undo = []
@@ -8,9 +6,6 @@ rolling_back = False
 
 def in_transaction_block():
     return len(undo) != 0 and not rolling_back
-
-
-# data commands
 
 
 def set_var(name, value):
@@ -47,7 +42,6 @@ def num_equal_to(value):
         print val_map[value]
     else:
         print "0"
-# transaction commands
 
 
 def commit():
