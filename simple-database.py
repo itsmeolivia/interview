@@ -51,12 +51,15 @@ def num_equal_to(value):
 
 
 def commit():
+    if not in_transaction_block():
+        print "NO TRANSACTION"
+        return
     global undo
     undo = []
 
 
 def rollback():
-    if len(undo) == 0:
+    if not in_transaction_block():
         print "NO TRANSACTION"
         return
     global rolling_back
@@ -88,7 +91,10 @@ def main():
     }
 
     while True:
-        line = raw_input()
+        try:
+            line = raw_input()
+        except EOFError:
+            exit()
         command = line.split()
         dispatch_table[command[0]](*command[1:])
 
