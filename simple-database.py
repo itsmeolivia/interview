@@ -69,8 +69,7 @@ def rollback():
         rolling = undo.pop()
         if rolling != "begin":
             rolling[0](*rolling[1:])
-        else:
-            rolling_back = False
+    rolling_back = False
 
 
 def begin():
