@@ -4,17 +4,22 @@ var_map = {}
 val_map = {}
 undo = []
 rolling_back = False
+
+
+def in_transaction_block():
+    return len(undo) != 0 and not rolling_back
+
+
 # data commands
 
 
 def set_var(name, value):
     if name in var_map:
-        if len(undo) != 0 and not rolling_back:
+        if in_transaction_block():
             undo.append((set_var, name, var_map[name]))
         val_map[var_map[name]] -= 1
-    else:
-        if len(undo) != 0 and not rolling_back:
-            undo.append((unset, name))
+    elif in_transaction_block():
+        undo.append((unset, name))
 
     if value in val_map:
         val_map[value] += 1
@@ -31,7 +36,7 @@ def get_val(name):
 
 
 def unset(name):
-    if len(undo) != 0 and not rolling_back:
+    if in_transaction_block():
         undo.append((set_var, name, var_map[name]))
     val_map[var_map[name]] -= 1
     del var_map[name]
@@ -51,12 +56,12 @@ def commit():
 
 
 def rollback():
-    rolling = None
     if len(undo) == 0:
         print "NO TRANSACTION"
         return
     global rolling_back
     rolling_back = True
+    rolling = None
     while rolling != "begin":
         rolling = undo.pop()
         if rolling != "begin":
@@ -85,10 +90,7 @@ def main():
     while True:
         line = raw_input()
         command = line.split()
-        try:
-            dispatch_table[command[0]](*command[1:])
-        except:
-            print >> sys.stderr, "Invalid command. Try again!"
+        dispatch_table[command[0]](*command[1:])
 
 
 if __name__ == "__main__":
