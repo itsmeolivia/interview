@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 var_map = {}
 val_map = {}
 undo = []
