@@ -3,6 +3,7 @@
 classes = {}
 students = {}
 
+
 class Course:
     def __init__(self, id, capacity, time):
         self.id = id
@@ -12,6 +13,7 @@ class Course:
 
     def __str__(self):
         return str(self.id)
+
 
 class Student:
     def __init__(self, id, capacity, start, finish):
@@ -24,11 +26,13 @@ class Student:
     def __str__(self):
         return str(self.id)
 
+
 def addClass(id, capacity, time):
     if id in classes:
         return "Error adding class " + str(id)
     classes[id] = Course(id, capacity, time)
     return "Successfully added class " + str(id)
+
 
 def removeClass(id):
     if id in classes:
@@ -38,6 +42,7 @@ def removeClass(id):
         return "Successfully removed class " + str(id)
     return "Error removing class " + str(id)
 
+
 def infoClass(id):
     if id not in classes:
         return "Class " + str(id) + " does not exist"
@@ -45,7 +50,7 @@ def infoClass(id):
         return "Class " + str(id) + " is empty"
     else:
         sorted_students = sorted(classes[id].students, key=lambda student:student.id)
-        return "Class " + str(id) +" has the following students: "  + ",".join([str(student) for student in sorted_students])
+        return "Class " + str(id) + " has the following students: "  + ",".join([str(student) for student in sorted_students])
 
 
 def addStudent(id, capacity, start, end):
@@ -53,6 +58,7 @@ def addStudent(id, capacity, start, end):
         return "Error adding student " + str(id)
     students[id] = Student(id, capacity, start, end)
     return "Successfully added student " + str(id)
+
 
 def removeStudent(id):
     if id in students:
@@ -93,6 +99,7 @@ def enrollStudent(studentId, classId):
         return "Number of free spots left in class " + str(classId) + ": " + str(classes[classId].capacity - len(classes[classId].students))
     return "Enrollment of student " + str(studentId) + " in class " + str(classId) +" failed"
 
+
 def unenrollStudent(studentId, classId):
     if studentId not in students:
         pass
@@ -105,4 +112,3 @@ def unenrollStudent(studentId, classId):
         students[studentId].courses.remove(classes[classId])
         return "Number of free spots left in class " + str(classId) + ": " + str(classes[classId].capacity - len(classes[classId].students))
     return "Unenrollment of student " + str(studentId) + " in class " + str(classId) +" failed"
- 
